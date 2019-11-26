@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: spenger-survival-web
+    build:
+      context: ../spenger-survival-frontend
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
+    depends_on:
+      - backend
+
+  backend:
+    container_name: spenger-survival-backend
+    build:
+      context: ../spenger-survival-backend
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=prod
+      - PORT=4000
+      - HOST=db
+      - DATABASE_PORT=3306
+    env_file:
+      - .backend.env
+    depends_on:
+      - db
+
+  db:
+    container_name: spenger-survival-db
+    image: mysql:5.7.28
+    env_file:
+      - .database.env
+    ports:
+      - '3307:3306'
