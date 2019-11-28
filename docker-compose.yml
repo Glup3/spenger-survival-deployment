@@ -6,6 +6,8 @@ services:
     build:
       context: ../spenger-survival-frontend
       dockerfile: Dockerfile
+    networks:
+      - spenger-survival-network
     ports:
       - '80:80'
     depends_on:
@@ -21,6 +23,8 @@ services:
       - PORT=4000
       - HOST=db
       - DATABASE_PORT=3306
+    networks:
+      - spenger-survival-network
     env_file:
       - .backend.env
     depends_on:
@@ -32,4 +36,14 @@ services:
     env_file:
       - .database.env
     ports:
-      - '3307:3306'
+      - '3306:3306'
+    volumes:
+      - spenger-survival-volume:/var/lib/mysql
+    networks:
+      - spenger-survival-network
+
+networks:
+  spenger-survival-network:
+
+volumes:
+  spenger-survival-volume:
