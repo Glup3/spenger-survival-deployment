@@ -45,6 +45,19 @@ services:
     networks:
       - spenger-survival-network
 
+  admin-web:
+    container_name: spenger-survival-admin-web
+    image: phpmyadmin/phpmyadmin:4.8
+    restart: always
+    ports:
+      - '8100:80'
+    environment:
+      - PMAHOST=db
+    networks:
+      - spenger-survival-network
+    depends_on:
+      - db
+
 networks:
   spenger-survival-network:
 
