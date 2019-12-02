@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      - NODE_ENV=prod
+      - NODE_ENV=production
       - PORT=4000
       - HOST=db
       - DATABASE_PORT=3306
